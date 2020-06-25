@@ -24,6 +24,10 @@
 #define tipoData "%a, %m %b %Y %X %Z"
 #define SERVER "AS(2008-2011)"
 
+int mult(int a, int b){
+	return a *b;
+}
+
 class MyServer{
   public:
 	// 0 = operando, 1 = nao operando
@@ -64,7 +68,7 @@ class MyServer{
 		  return;
 	}
 	// Circulo de vida de cada requisicao
-	void run(int connfd){
+	static void *run(int connfd){
 
 	}
 	// FUncao que sera chamada em cada thread
@@ -97,7 +101,7 @@ class network {
     	return serve;
     }
 
-    int createSocket(int porta){
+    int* createSocket(int porta){
 		int *listenfd;
 		struct sockaddr_in servaddr;
 		// malloc para um ponteiro de tamanho (int)
