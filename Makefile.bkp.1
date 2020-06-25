@@ -1,0 +1,24 @@
+SRC		:= src
+PREFIX	:= ./build
+COMPILE	:= gcc
+
+# SOURCES
+SOURCES := $(wildcard $(SRC)/*.cpp)
+# DIR Sources diretorio dos codigo
+SUBDIRS := config request 
+
+all: $(SRC)/$(SUBDIRS)
+	@echo ${SOURCES}
+	
+files := $(wildcard a/* b/* c/* d/*)
+
+$(SRC)/$(SUBDIRS):
+	@echo $(SRC)/$@
+	$(MAKE) -C $(SRC)/$@
+
+clean:
+#	rm -rf *.o *~ server $(SUBDIRS)
+	for dir in $(SUBDIRS); do \
+      echo "${SRC}/$${dir}";\
+      rm -rf ${SRC}/$${dir}/*.(o);\
+    done

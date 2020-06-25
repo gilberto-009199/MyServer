@@ -1,0 +1,19 @@
+
+PREFIX := ./build
+
+all: build
+
+# Funcoes do build
+build: clean main.o # Limpa os arquivos 'clean', Builda Main.o e coloca no arquivo server
+	@mkdir -p ${PREFIX}
+	gcc -o server main.o util.o
+
+main.o: main.cpp util.o 
+	gcc -o main.o  main.cpp -c -W -Wall -ansi -pedantic
+
+util.o: util.cpp util.h 
+	gcc -o util.o -c util.cpp  -W -Wall -ansi -pedantic
+
+# Funcoes de utilidade do Makefile
+clean:
+	rm -rf *.o *~ server
