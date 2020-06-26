@@ -56,35 +56,35 @@ void Client::run(){
 	      caminho[0] = '.';
 	    }
 
-	    size = Http::verificaArquivo(caminho);
+	    size = Http::isFile(caminho);
 	    if(size){
 	    	Http::dec_string(size, sizechar);
 	      if(!novo){
-	    	  Http::respostaHTTP("HTTP/1.1 200 OK", tipo, caminho, connfd, sizechar);
-	    	  Http::enviaArquivo(caminho, connfd);
+	    	  Http::sendResponse("HTTP/1.1 200 OK", tipo, caminho, connfd, sizechar);
+	    	  Http::sendResponseFile(caminho, connfd);
 	      }
 	      else{
-	    	  Http::respostaHTTP("HTTP/1.1 301 Moved Permanently", tipo, caminho, connfd, sizechar);
-	    	  Http::enviaArquivo(caminho, connfd);
+	    	  Http::sendResponse("HTTP/1.1 301 Moved Permanently", tipo, caminho, connfd, sizechar);
+	    	  Http::sendResponseFile(caminho, connfd);
 	      }
 	    }
 	    else{
-	      size = Http::verificaArquivo("notfound.html");
+	      size = Http::isFile("notfound.html");
 	      Http::dec_string(size, sizechar);
-	      Http::respostaHTTP("HTTP/1.1 404 Not Found", "html", caminho, connfd, sizechar);
-	      Http::enviaArquivo("notfound.html", connfd);
+	      Http::sendResponse("HTTP/1.1 404 Not Found", "html", caminho, connfd, sizechar);
+	      Http::sendResponseFile("notfound.html", connfd);
 	    }
 	  }
 	  else if(situacao == 2){
-	    size = Http::verificaArquivo("notsupported.html");
+	    size = Http::isFile("notsupported.html");
 	    Http::dec_string(size, sizechar);
-	    Http::respostaHTTP("HTTP/1.1 505 HTTP Version Not Supported", "html", caminho, connfd, sizechar);
-	    Http::enviaArquivo("notsupported.html", connfd);
+	    Http::sendResponse("HTTP/1.1 505 HTTP Version Not Supported", "html", caminho, connfd, sizechar);
+	    Http::sendResponseFile("notsupported.html", connfd);
 	  }
 	  else if(situacao == 3){
 	    size = sizeof(tipo);
 	    Http::dec_string(size, sizechar);
-	    Http::respostaHTTP("HTTP/1.1 200 OK", "html", caminho, connfd, sizechar);
+	    Http::sendResponse("HTTP/1.1 200 OK", "html", caminho, connfd, sizechar);
 	    strcpy(POST, "<hmtl>\n<head>\n<title>Post</title>\n</head>\n<body>");
 	    strcat(POST, "\n<b>Post:</b> ");
 	    strcat(POST, tipo);
@@ -92,10 +92,10 @@ void Client::run(){
 	    send(connfd, POST, sizeof(POST), 0);
 	  }
 	  else{
-	    size = Http::verificaArquivo("badrequest.html");
+	    size = Http::isFile("badrequest.html");
 	    Http::dec_string(size, sizechar);
-	    Http::respostaHTTP("HTTP/1.1 400 Bad Request", "html", caminho, connfd, sizechar);
-	    Http::enviaArquivo("badrequest.html", connfd);
+	    Http::sendResponse("HTTP/1.1 400 Bad Request", "html", caminho, connfd, sizechar);
+	    Http::sendResponseFile("badrequest.html", connfd);
 	  }
 	  printf("--------------------- Fim Comunicação --------------------\n\n");
 

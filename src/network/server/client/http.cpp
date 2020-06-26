@@ -26,7 +26,7 @@ Http::Http() {
 
 }
 /* Envia o arquivo solicitado ao cliente */
-void Http::enviaArquivo(char *caminho, int connfd){
+void Http::sendResponseFile(char *caminho, int connfd){
   FILE *file;
   long size;
   char *c;
@@ -45,7 +45,7 @@ void Http::enviaArquivo(char *caminho, int connfd){
   }
   return;
 }
-void Http::respostaHTTP(char *resposta, char *tipo, char *caminho, int connfd, char *size){
+void Http::sendResponse(char *resposta, char *tipo, char *caminho, int connfd, char *size){
   time_t rawtime;
   struct tm *timeinfo, *ltime;
   struct stat arq;
@@ -87,10 +87,10 @@ void Http::respostaHTTP(char *resposta, char *tipo, char *caminho, int connfd, c
       if(aux != NULL)
 	strcat(encaminhar, aux);
       else{
-	s= verificaArquivo("badrequest.html");
+	s= isFile("badrequest.html");
 	dec_string(s, size);
-	respostaHTTP("HTTP/1.1 400 Bad Request", tipo, "badrequest.html", connfd, size);
-	enviaArquivo("badrequest.html", connfd);
+	sendResponse("HTTP/1.1 400 Bad Request", tipo, "badrequest.html", connfd, size);
+	sendResponseFile("badrequest.html", connfd);
 	close(connfd);
 	exit(0);
       }
@@ -216,7 +216,7 @@ void Http::dec_string(long size, char *s){
 
   return;
 }
-long Http::verificaArquivo(char *caminho){
+long Http::isFile(char *caminho){
   FILE *file;
   long size;
   file = fopen(caminho, "rb");

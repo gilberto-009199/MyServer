@@ -11,10 +11,10 @@
 class Http {
 public:
 	Http();
-	static void enviaArquivo(char *caminho, int connfd);
-	static void respostaHTTP(char *resposta, char *tipo, char *caminho, int connfd, char *size);
+	static void sendResponseFile(char *caminho, int connfd);
+	static void sendResponse(char *resposta, char *tipo, char *caminho, int connfd, char *size);
 	static void dec_string(long size, char *s);
-	static long verificaArquivo(char *caminho);
+	static long isFile(char *caminho);
 	static int redirect(char *caminho);
 	static int TratandoPedido(char *metodo, char *versao, char *caminho, char *p, char *tipo, int i);
 	static int pedidoHTTP(char *p, char *caminho, char *tipo);
