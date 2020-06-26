@@ -1,18 +1,22 @@
+/* Inspirado em https://www.vivaolinux.com.br/script/Simples-servidor-http-com-concorrencia-feito-em-C/ */
 #include <stdio.h>
 
 // Meus modulos
-#include "config/conf.h"
-#include "network/net.h"
+#include "network/network.h";
+#include "network/server/myserver.h";
+#include "config/config.h";
 
 // Minhas Constantes
 #define VAL0 2
 #define VAL1 3
 
-
 int main(){
 
-    printf(" Resultado Soma  %d \n",sum(VAL0, VAL1));
-    printf(" Resulted Malt8  %d \n",mult(1, 2));
+	MyServer server = Network::create(8080);
+
+	server.start();
+
+    printf(" Final da excecucao! \n");
 
     return 0;
 }

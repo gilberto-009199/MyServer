@@ -10,6 +10,13 @@
 
 class MyServer {
   public:
+	int MAXPENDING = 500;
+	// 0 = operando, 1 = nao operando
+	int status;
+	// porta do servidor
+	int porta;
+	// Ligacao do socket
+	int *listenfd;
 	void setListener(int *listenRef);
 	bool start();
 	void server(int *listenfd);
