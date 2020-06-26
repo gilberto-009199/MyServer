@@ -16,7 +16,7 @@ SUBDIRS := config network
 
 all: ${SOURCES}
 #	echo "Chamando o all";
-	gcc -o server ${SOURCES} -Wall -pedantic -pthread 
+	g++ -o server ${SOURCES} -Wall -pedantic -pthread 
 
 install: 
 	echo "Ainda nao criado utilize o arquivo server";

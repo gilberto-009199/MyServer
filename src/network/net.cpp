@@ -25,7 +25,7 @@
 #define SERVER "AS(2008-2011)"
 
 int mult(int a, int b){
-	return a *b;
+	return a * b;
 }
 
 class MyServer{
